@@ -6,6 +6,11 @@ const app = new App({
   signingSecret: process.env.SLACK_SIGNING_SECRET
 });
 
+app.event("app_mention", async ({ event, say }) => {
+  const reversedText = [...event.text].reverse().join("");
+  await say(reversedText);
+});
+
 (async () => {
   // Start your app
   await app.start(process.env.PORT || 3000);
